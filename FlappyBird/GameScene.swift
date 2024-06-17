@@ -8,15 +8,17 @@
 import Foundation
 import GameKit
 
-class GameScene: SKScene{
-    
+class GameScene: SKScene {
     private let background = SKSpriteNode(imageNamed: "background-day")
     private let background2 = SKSpriteNode(imageNamed: "background-day")
+    private let base = SKSpriteNode(imageNamed: "base")
+    private let base2 = SKSpriteNode(imageNamed: "base")
     
     private var player = SKSpriteNode(imageNamed: "yellowbird-midflap")
     private var playerAtlas = SKTextureAtlas(named: "yellowbird")
     
     var score = 0
+    var isMenu = true
     private var maxRotationAngle = 1.0
     
     private var playerIdleTextures: [SKTexture] {
@@ -54,6 +56,16 @@ class GameScene: SKScene{
         background2.setScale(scale)
         background2.zPosition = 1
         addChild(background2)
+        
+        base.position = CGPoint(x: size.width / 2, y: 0)
+        base.setScale(scale)
+        base.zPosition = 2
+        addChild(base)
+        
+        base2.position = CGPoint(x: size.width / 2 + base.size.width, y: 0)
+        base2.setScale(scale)
+        base2.zPosition = 2
+        addChild(base2)
     }
     
     private func setPlayer(){
@@ -91,7 +103,7 @@ class GameScene: SKScene{
     
     private func setPhysicsBoundaries() {
         // Создаем физическое тело для границ сцены
-        let borderBody = SKPhysicsBody(edgeLoopFrom: self.frame)
+        let borderBody = SKPhysicsBody(edgeLoopFrom: CGRect(x: 0, y: base.size.height/2, width: self.frame.width, height: self.frame.height - base.size.height/2))
         borderBody.friction = 0 // устанавливаем трение границы
         self.physicsBody = borderBody
     }
@@ -103,12 +115,21 @@ class GameScene: SKScene{
     }
     
     private func startBackgroundAnimation() {
-        let moveLeft = SKAction.moveBy(x: -background.size.width, y: 0, duration: 5)
+        let backgroundSpeed = 20.0
+        let moveLeft = SKAction.moveBy(x: -background.size.width, y: 0, duration: backgroundSpeed)
         let resetPosition = SKAction.moveBy(x: background.size.width, y: 0, duration: 0)
         let moveSequence = SKAction.sequence([moveLeft, resetPosition])
         let moveForever = SKAction.repeatForever(moveSequence)
         
+        let baseSpeed = 5.0
+        let moveLeftForBase = SKAction.moveBy(x: -base.size.width, y: 0, duration: baseSpeed)
+        let resetPositionForBase = SKAction.moveBy(x: base.size.width, y: 0, duration: 0)
+        let moveSequenceForBase = SKAction.sequence([moveLeftForBase, resetPositionForBase])
+        let moveForeverForBase = SKAction.repeatForever(moveSequenceForBase)
+        
         background.run(moveForever)
         background2.run(moveForever)
+        base.run(moveForeverForBase)
+        base2.run(moveForeverForBase)
     }
 }
