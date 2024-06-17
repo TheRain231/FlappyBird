@@ -6,16 +6,24 @@
 //
 
 import SwiftUI
+import SpriteKit
+import GameKit
 
 struct ContentView: View {
+    let scene = GameScene()
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        ZStack{
+            SpriteView(scene: scene)
+                .ignoresSafeArea()
+                .onTapGesture(perform: {
+                    scene.applyImpulseToPlayer()
+                })
+//            Text(String(scene.score))
+//                .font(.custom("flappy-font", size: 30))
+//                .position(x: UIScreen.main.bounds.width / 2,
+//                          y: UIScreen.main.bounds.height / 6)
         }
-        .padding()
     }
 }
 

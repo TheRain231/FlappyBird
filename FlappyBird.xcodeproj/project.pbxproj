@@ -11,6 +11,7 @@
 		3899F37B2C146377000E6696 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899F37A2C146377000E6696 /* ContentView.swift */; };
 		3899F37D2C146379000E6696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3899F37C2C146379000E6696 /* Assets.xcassets */; };
 		3899F3802C146379000E6696 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3899F37F2C146379000E6696 /* Preview Assets.xcassets */; };
+		3899F3872C1463AD000E6696 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899F3862C1463AC000E6696 /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		3899F37A2C146377000E6696 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3899F37C2C146379000E6696 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3899F37F2C146379000E6696 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3899F3862C1463AC000E6696 /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,6 +55,7 @@
 			children = (
 				3899F3782C146377000E6696 /* FlappyBirdApp.swift */,
 				3899F37A2C146377000E6696 /* ContentView.swift */,
+				3899F3862C1463AC000E6696 /* GameScene.swift */,
 				3899F37C2C146379000E6696 /* Assets.xcassets */,
 				3899F37E2C146379000E6696 /* Preview Content */,
 			);
@@ -137,6 +140,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3899F3872C1463AD000E6696 /* GameScene.swift in Sources */,
 				3899F37B2C146377000E6696 /* ContentView.swift in Sources */,
 				3899F3792C146377000E6696 /* FlappyBirdApp.swift in Sources */,
 			);
