@@ -6,9 +6,12 @@
 //
 
 import Foundation
+import SwiftUI
 import GameKit
 
 class GameScene: SKScene {
+    private let lightTexture = SKTexture(imageNamed: "background-day")
+    private let darkTexture = SKTexture(imageNamed: "background-night")
     private let background = SKSpriteNode(imageNamed: "background-day")
     private let background2 = SKSpriteNode(imageNamed: "background-day")
     private let base = SKSpriteNode(imageNamed: "base")
@@ -78,6 +81,19 @@ class GameScene: SKScene {
         player.physicsBody?.allowsRotation = false
         
         addChild(player)
+    }
+    
+    func setTheme(colorScheme: ColorScheme){
+        switch colorScheme {
+        case .light:
+            background.texture = lightTexture
+            background2.texture = lightTexture
+        case .dark:
+            background.texture = darkTexture
+            background2.texture = darkTexture
+        @unknown default:
+            break
+        }
     }
     
     func applyImpulseToPlayer() {
