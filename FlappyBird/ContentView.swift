@@ -11,7 +11,7 @@ import GameKit
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    let scene = GameScene()
+    public let scene = GameScene()
     
     var body: some View {
         ZStack{

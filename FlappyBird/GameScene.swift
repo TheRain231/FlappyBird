@@ -14,7 +14,7 @@ class GameScene: SKScene {
     private let darkTexture = SKTexture(imageNamed: "background-night")
     private let background = SKSpriteNode(imageNamed: "background-day")
     private let background2 = SKSpriteNode(imageNamed: "background-day")
-    private let base = SKSpriteNode(imageNamed: "base")
+    let base = SKSpriteNode(imageNamed: "base")
     private let base2 = SKSpriteNode(imageNamed: "base")
     
     private var player = SKSpriteNode(imageNamed: "yellowbird-midflap")
@@ -23,6 +23,7 @@ class GameScene: SKScene {
     var score = 0
     var isMenu = true
     private var maxRotationAngle = 1.0
+    let baseSpeed = 5.0
     
     private var playerIdleTextures: [SKTexture] {
         return [
@@ -38,6 +39,7 @@ class GameScene: SKScene {
         self.setBackground()
         self.setPlayer()
         self.setPhysics()
+        self.setPipe()
         
         self.startIdleAnimation()
         self.startBackgroundAnimation()
@@ -49,7 +51,7 @@ class GameScene: SKScene {
     
     private func setBackground(){
         let scale = size.height / 512
-
+        
         background.position = CGPoint(x: size.width / 2, y: size.height / 2)
         background.setScale(scale)
         background.zPosition = 1
@@ -62,25 +64,29 @@ class GameScene: SKScene {
         
         base.position = CGPoint(x: size.width / 2, y: 0)
         base.setScale(scale)
-        base.zPosition = 2
+        base.zPosition = 5
         addChild(base)
         
         base2.position = CGPoint(x: size.width / 2 + base.size.width, y: 0)
         base2.setScale(scale)
-        base2.zPosition = 2
+        base2.zPosition = 5
         addChild(base2)
     }
     
     private func setPlayer(){
         player.position = CGPoint(x: size.width / 5, y: size.height / 2)
         player.setScale(size.width / 350)
-        player.zPosition = 2
+        player.zPosition = 3
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
         player.physicsBody?.isDynamic = true
         player.physicsBody?.allowsRotation = false
         
         addChild(player)
+    }
+    
+    private func setPipe(){
+        Pipe.pipes.append(Pipe(gameScene: self))
     }
     
     func setTheme(colorScheme: ColorScheme){
@@ -103,13 +109,13 @@ class GameScene: SKScene {
     
     private func rotatePlayer(){
         guard let physicsBody = player.physicsBody else { return }
-            
-            let velocityY = physicsBody.velocity.dy
-            let targetRotationAngle = max(-maxRotationAngle, min(maxRotationAngle, velocityY / 1000 * maxRotationAngle))
-            
-            // Линейная интерполяция для плавного поворота
-            let lerpFactor: CGFloat = 0.1
-            player.zRotation = player.zRotation * (1 - lerpFactor) + targetRotationAngle * lerpFactor
+        
+        let velocityY = physicsBody.velocity.dy
+        let targetRotationAngle = max(-maxRotationAngle, min(maxRotationAngle, velocityY / 1000 * maxRotationAngle))
+        
+        // Линейная интерполяция для плавного поворота
+        let lerpFactor: CGFloat = 0.1
+        player.zRotation = player.zRotation * (1 - lerpFactor) + targetRotationAngle * lerpFactor
     }
     
     private func setPhysics() {
@@ -137,7 +143,6 @@ class GameScene: SKScene {
         let moveSequence = SKAction.sequence([moveLeft, resetPosition])
         let moveForever = SKAction.repeatForever(moveSequence)
         
-        let baseSpeed = 5.0
         let moveLeftForBase = SKAction.moveBy(x: -base.size.width, y: 0, duration: baseSpeed)
         let resetPositionForBase = SKAction.moveBy(x: base.size.width, y: 0, duration: 0)
         let moveSequenceForBase = SKAction.sequence([moveLeftForBase, resetPositionForBase])
