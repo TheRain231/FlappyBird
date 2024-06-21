@@ -43,17 +43,14 @@ class Pipe: Equatable, Identifiable{
     
     func startPipesAnimation(){
         let moveLeft = SKAction.moveBy(x: -scene.base.size.width, y: 0, duration: scene.baseSpeed)
-            let die = SKAction.run{
-                if let index = Pipe.pipes.firstIndex(of: self) {
-                    // Удаляем узел из массива
-                    Pipe.pipes.remove(at: index)
-                    
-                    // Создаем новый узел
-                    Pipe.pipes.append(Pipe(gameScene: self.scene))
-                }
+        let die = SKAction.run{
+            if let index = Pipe.pipes.firstIndex(of: self) {
+                Pipe.pipes.remove(at: index)
+                Pipe.pipes.append(Pipe(gameScene: self.scene))
             }
-            let sequence = SKAction.sequence([moveLeft, die])
-            upperSprite.run(sequence)
-            lowerSprite.run(sequence)
+        }
+        let sequence = SKAction.sequence([moveLeft, die])
+        upperSprite.run(moveLeft)
+        lowerSprite.run(sequence)
     }
 }
