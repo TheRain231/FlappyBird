@@ -20,8 +20,8 @@ class Pipe: Equatable, Identifiable{
     let id = UUID()
     let upperSprite = SKSpriteNode(imageNamed: "pipe")
     let lowerSprite = SKSpriteNode(imageNamed: "pipe")
-    let offsite = 0.0
-    let hole = 0.0
+    let offsite = CGFloat.random(in: -700...700)
+    let hole = CGFloat.random(in: -50...0)
     
     init(gameScene: GameScene){
         scene = gameScene
