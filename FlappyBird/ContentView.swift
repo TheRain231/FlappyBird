@@ -11,20 +11,20 @@ import GameKit
 
 struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
-    public let scene = GameScene()
+    static var scene = GameScene()
     
     var body: some View {
         ZStack{
-            SpriteView(scene: scene)
+            SpriteView(scene: ContentView.scene)
                 .ignoresSafeArea()
                 .onAppear(perform: {
-                    scene.setTheme(colorScheme: colorScheme)
+                    ContentView.scene.setTheme(colorScheme: colorScheme)
                 })
                 .onTapGesture(perform: {
-                    scene.applyImpulseToPlayer()
+                    ContentView.scene.applyImpulseToPlayer()
                 })
         }.onChange(of: colorScheme) {
-            scene.setTheme(colorScheme: colorScheme)
+            ContentView.scene.setTheme(colorScheme: colorScheme)
         }
     }
 }

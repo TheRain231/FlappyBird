@@ -32,9 +32,25 @@ class Pipe: Equatable, Identifiable{
         upperSprite.position = CGPoint(x: scene.size.width + upperSprite.size.width * 2 + posX, y: scene.size.height - offsite - hole)
         upperSprite.setScale(scene.size.height / 800)
         
+        upperSprite.physicsBody = SKPhysicsBody(texture: upperSprite.texture!, size: upperSprite.size)
+        upperSprite.physicsBody?.isDynamic = false
+        upperSprite.physicsBody?.allowsRotation = false
+        
+        upperSprite.physicsBody?.categoryBitMask = 0x1 << 1
+        upperSprite.physicsBody?.contactTestBitMask = 0x1 << 0
+        upperSprite.physicsBody?.collisionBitMask = 0x1 << 0
+        
         lowerSprite.zPosition = 4
         lowerSprite.position = CGPoint(x: scene.size.width + lowerSprite.size.width * 2 + posX, y: -offsite + hole)
         lowerSprite.setScale(scene.size.height / 800)
+        
+        lowerSprite.physicsBody = SKPhysicsBody(texture: lowerSprite.texture!, size: lowerSprite.size)
+        lowerSprite.physicsBody?.isDynamic = false
+        lowerSprite.physicsBody?.allowsRotation = false
+        
+        lowerSprite.physicsBody?.categoryBitMask = 0x1 << 1
+        lowerSprite.physicsBody?.contactTestBitMask = 0x1 << 0
+        lowerSprite.physicsBody?.collisionBitMask = 0x1 << 0
         
         scene.addChild(lowerSprite)
         scene.addChild(upperSprite)

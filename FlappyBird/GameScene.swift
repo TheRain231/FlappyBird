@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import GameKit
 
-class GameScene: SKScene {
+class GameScene: SKScene, SKPhysicsContactDelegate {
     private let lightTexture = SKTexture(imageNamed: "background-day")
     private let darkTexture = SKTexture(imageNamed: "background-night")
     private let background = SKSpriteNode(imageNamed: "background-day")
@@ -43,6 +43,23 @@ class GameScene: SKScene {
         
         self.startIdleAnimation()
         self.startBackgroundAnimation()
+        physicsWorld.contactDelegate = self
+    }
+    
+    func didBegin(_ contact: SKPhysicsContact) {
+        // Здесь вызываем вашу функцию при столкновении
+        restartGame()
+    }
+    
+    // Функция для перезапуска игры
+    func restartGame() {
+        if let view = self.view {
+            let newScene = GameScene(size: self.size)
+            newScene.scaleMode = self.scaleMode
+            let transition = SKTransition.crossFade(withDuration: 1.0)
+            view.presentScene(newScene, transition: transition)
+            ContentView.scene = newScene
+        }
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -81,6 +98,9 @@ class GameScene: SKScene {
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
         player.physicsBody?.isDynamic = true
         player.physicsBody?.allowsRotation = false
+        player.physicsBody?.categoryBitMask = 0x1 << 0
+        player.physicsBody?.contactTestBitMask = 0x1 << 1
+        player.physicsBody?.collisionBitMask = 0x1 << 1
         
         addChild(player)
     }
