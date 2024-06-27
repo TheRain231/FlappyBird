@@ -23,10 +23,6 @@ struct ContentView: View {
                 .onTapGesture(perform: {
                     scene.applyImpulseToPlayer()
                 })
-//            Text(String(scene.score))
-//                .font(.custom("flappy-font", size: 30))
-//                .position(x: UIScreen.main.bounds.width / 2,
-//                          y: UIScreen.main.bounds.height / 6)
         }.onChange(of: colorScheme) {
             scene.setTheme(colorScheme: colorScheme)
         }

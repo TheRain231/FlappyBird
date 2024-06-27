@@ -19,8 +19,8 @@ class GameScene: SKScene {
     
     private var player = SKSpriteNode(imageNamed: "yellowbird-midflap")
     private var playerAtlas = SKTextureAtlas(named: "yellowbird")
+    private var pipes: [Pipe] = []
     
-    var score = 0
     var isMenu = true
     private var maxRotationAngle = 1.0
     let baseSpeed = 5.0
@@ -86,7 +86,10 @@ class GameScene: SKScene {
     }
     
     private func setPipe(){
-        Pipe.pipes.append(Pipe(gameScene: self))
+        let offset = background.size.width / 3
+        pipes.append(Pipe(gameScene: self, posx: 0))
+        pipes.append(Pipe(gameScene: self, posx: offset))
+        pipes.append(Pipe(gameScene: self, posx: offset * 2))
     }
     
     func setTheme(colorScheme: ColorScheme){
