@@ -22,10 +22,12 @@ class Pipe: Equatable, Identifiable{
     var offsite = CGFloat.random(in: -700...700)
     var hole = CGFloat.random(in: -50...0)
     var posX: CGFloat = 0
+    let holeSprite: SKSpriteNode
     
     init(gameScene: GameScene, posx: CGFloat){
         scene = gameScene
         posX = posx
+        holeSprite = SKSpriteNode(color: .clear, size: CGSize(width: 10, height: scene.size.height))
         
         upperSprite.zPosition = 4
         upperSprite.zRotation = .pi
@@ -52,8 +54,20 @@ class Pipe: Equatable, Identifiable{
         lowerSprite.physicsBody?.contactTestBitMask = 0x1 << 0
         lowerSprite.physicsBody?.collisionBitMask = 0x1 << 0
         
+        holeSprite.zPosition = 4
+        holeSprite.position = CGPoint(x: scene.size.width + lowerSprite.size.width * 2 + posX, y: 0)
+        holeSprite.setScale(scene.size.height / 800)
+        
+        holeSprite.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 10, height: scene.size.height * 2))
+        holeSprite.physicsBody?.isDynamic = false
+        holeSprite.physicsBody?.allowsRotation = false
+        
+        holeSprite.physicsBody?.categoryBitMask = 0x1 << 2
+        holeSprite.physicsBody?.contactTestBitMask = 0x1 << 0
+        
         scene.addChild(lowerSprite)
         scene.addChild(upperSprite)
+        scene.addChild(holeSprite)
         
         startPipesAnimation()
     }
@@ -64,11 +78,14 @@ class Pipe: Equatable, Identifiable{
         
         upperSprite.position.y = scene.size.height - offsite - hole
         lowerSprite.position.y = -offsite + hole
+        
+        holeSprite.physicsBody?.categoryBitMask = 0x1 << 2
     }
     
     private func startPipesAnimation(){
         let moveToBorder = SKAction.moveTo(x: scene.size.width + upperSprite.size.width * 2,
                                          duration: (scene.baseSpeed * posX / 1440))
+        let waitALittle = SKAction.moveBy(x: 0, y: 0, duration: scene.baseSpeed / 20)
     
         let moveLeft = SKAction.moveBy(x: -scene.base.size.width, y: 0, duration: scene.baseSpeed)
         let resetPosition = SKAction.moveTo(x: scene.size.width + lowerSprite.size.width * 2, duration: 0)
@@ -78,7 +95,9 @@ class Pipe: Equatable, Identifiable{
         let moveSequence = SKAction.sequence([moveLeft, resetPosition, random])
         let moveForever = SKAction.repeatForever(moveSequence)
         let sequence = SKAction.sequence([moveToBorder, moveForever])
+        let sequence2 = SKAction.sequence([moveToBorder, waitALittle, moveForever])
         upperSprite.run(sequence)
         lowerSprite.run(sequence)
+        holeSprite.run(sequence2)
     }
 }

@@ -20,10 +20,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private var player = SKSpriteNode(imageNamed: "yellowbird-midflap")
     private var playerAtlas = SKTextureAtlas(named: "yellowbird")
     private var pipes: [Pipe] = []
+    var scheme: ColorScheme = .light
     
     var isMenu = true
     private var maxRotationAngle = 1.0
     let baseSpeed = 5.0
+    var score = 0 {
+        didSet {
+            NotificationCenter.default.post(name: .scoreChanged, object: nil)
+        }
+    }
     
     private var playerIdleTextures: [SKTexture] {
         return [
@@ -47,8 +53,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        // Здесь вызываем вашу функцию при столкновении
-        restartGame()
+        if (contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0){
+            //restartGame()
+        } else if (contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0){
+            //restartGame()
+        }
+        
+        if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0){
+            score += 1
+            contact.bodyA.node?.physicsBody?.categoryBitMask = 0x1 << 3
+            print(score)
+        } else if (contact.bodyB.categoryBitMask == 0x1 << 2 && contact.bodyA.categoryBitMask == 0x1 << 0){
+            score += 1
+            contact.bodyB.node?.physicsBody?.categoryBitMask = 0x1 << 3
+            print(score)
+        }
     }
     
     // Функция для перезапуска игры
@@ -58,6 +77,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             newScene.scaleMode = self.scaleMode
             let transition = SKTransition.crossFade(withDuration: 1.0)
             view.presentScene(newScene, transition: transition)
+            score = 0
+            newScene.setTheme(colorScheme: scheme)
             ContentView.scene = newScene
         }
     }
@@ -99,7 +120,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         player.physicsBody?.isDynamic = true
         player.physicsBody?.allowsRotation = false
         player.physicsBody?.categoryBitMask = 0x1 << 0
-        player.physicsBody?.contactTestBitMask = 0x1 << 1
+        player.physicsBody?.contactTestBitMask = 0x1 << 1 | 0x1 << 2
         player.physicsBody?.collisionBitMask = 0x1 << 1
         
         addChild(player)
@@ -113,6 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func setTheme(colorScheme: ColorScheme){
+        scheme = colorScheme
         switch colorScheme {
         case .light:
             background.texture = lightTexture
@@ -176,4 +198,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         base.run(moveForeverForBase)
         base2.run(moveForeverForBase)
     }
+    
+    func performOtherAction() {
+        print("Collision detected between spriteA and spriteC")
+        // Ваш код для выполнения другого действия
+    }
+}
+
+extension Notification.Name {
+    static let scoreChanged = Notification.Name("scoreChanged")
 }
