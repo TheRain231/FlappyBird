@@ -88,8 +88,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
             let restart = SKAction.run { [weak self] in
                 self?.restartGame()
             }
-            let soundOfHit = SKAction.playSoundFileNamed("sfx_hit", waitForCompletion: true)
-            let soundOfDeath = SKAction.playSoundFileNamed("sfx_die", waitForCompletion: false)
             run(SKAction.sequence([stop, wait, restart]))
         }
         if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0 ||
@@ -198,6 +196,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         // Линейная интерполяция для плавного поворота
         let lerpFactor: CGFloat = 0.1
         player.zRotation = player.zRotation * (1 - lerpFactor) + targetRotationAngle * lerpFactor
+        player.position.x = size.width / 5
     }
     
     private func setPhysics() {
