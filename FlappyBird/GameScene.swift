@@ -54,19 +54,17 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     func didBegin(_ contact: SKPhysicsContact) {
         if (contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0){
-            //restartGame()
+            restartGame()
         } else if (contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0){
-            //restartGame()
+            restartGame()
         }
         
         if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0){
             score += 1
             contact.bodyA.node?.physicsBody?.categoryBitMask = 0x1 << 3
-            print(score)
         } else if (contact.bodyB.categoryBitMask == 0x1 << 2 && contact.bodyA.categoryBitMask == 0x1 << 0){
             score += 1
             contact.bodyB.node?.physicsBody?.categoryBitMask = 0x1 << 3
-            print(score)
         }
     }
     

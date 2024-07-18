@@ -25,19 +25,10 @@ struct ContentView: View {
                     ContentView.scene.applyImpulseToPlayer()
                 })
             VStack{
-                HStack{
-                    Text(String(score))
-                        .bold()
-                    #if DEBUG
-                    Spacer()
-                    Button {
-                        ContentView.scene.restartGame()
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
-                    }.buttonStyle(.bordered)
-                    #endif
-                }
-                .padding(20)
+                Text(String(score))
+                    .foregroundStyle(.white)
+                    .font(.custom("04b19", size: 40))
+                    .offset(y: 30)
                 Spacer()
             }
             

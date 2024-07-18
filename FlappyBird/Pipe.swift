@@ -20,13 +20,17 @@ class Pipe: Equatable, Identifiable{
     let upperSprite = SKSpriteNode(imageNamed: "pipe")
     let lowerSprite = SKSpriteNode(imageNamed: "pipe")
     var offsite = CGFloat.random(in: -700...700)
-    var hole = CGFloat.random(in: -50...0)
+    let holeMin = -40.0
+    let holeMax = -20.0
+    var hole: CGFloat
     var posX: CGFloat = 0
     let holeSprite: SKSpriteNode
+    static var lastY: CGFloat = 0.0
     
     init(gameScene: GameScene, posx: CGFloat){
         scene = gameScene
         posX = posx
+        hole = CGFloat.random(in: holeMin...holeMax)
         holeSprite = SKSpriteNode(color: .clear, size: CGSize(width: 10, height: scene.size.height))
         
         upperSprite.zPosition = 4
@@ -64,6 +68,7 @@ class Pipe: Equatable, Identifiable{
         
         holeSprite.physicsBody?.categoryBitMask = 0x1 << 2
         holeSprite.physicsBody?.contactTestBitMask = 0x1 << 0
+        randomise()
         
         scene.addChild(lowerSprite)
         scene.addChild(upperSprite)
@@ -74,8 +79,9 @@ class Pipe: Equatable, Identifiable{
     
     private func randomise(){
         offsite = CGFloat.random(in: -700...700)
-        hole = CGFloat.random(in: -50...0)
-        
+        Pipe.lastY = offsite
+        hole = CGFloat.random(in: holeMin...holeMax)
+
         upperSprite.position.y = scene.size.height - offsite - hole
         lowerSprite.position.y = -offsite + hole
         
