@@ -79,6 +79,9 @@ class Pipe: Equatable, Identifiable{
     
     private func randomise(){
         offsite = CGFloat.random(in: -700...700)
+        while (abs(offsite - Pipe.lastY) >= 700){
+            offsite = CGFloat.random(in: -700...700)
+        }
         Pipe.lastY = offsite
         hole = CGFloat.random(in: holeMin...holeMax)
 
