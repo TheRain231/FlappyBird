@@ -40,6 +40,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ]
     }
     
+    private let soundOfPoint = SKAction.playSoundFileNamed("sfx_point", waitForCompletion: false)
+    private let soundOfDeath = SKAction.sequence([
+        SKAction.playSoundFileNamed("sfx_hit", waitForCompletion: false),
+        SKAction.playSoundFileNamed("sfx_die", waitForCompletion: false)
+    ])
+    private let soundOfSwoosh = SKAction.playSoundFileNamed("sfx_swooshing", waitForCompletion: false)
+    private let soundOfWing = SKAction.playSoundFileNamed("sfx_wing", waitForCompletion: false)
+    
     override func didMove(to view: SKView) {
         scene?.size = CGSize(width: 1179, height: 2556)
         self.setBackground()
@@ -53,18 +61,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if (contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0){
-            restartGame()
-        } else if (contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0){
+        if (contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0 || contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0 ){
+            run(soundOfDeath)
             restartGame()
         }
-        
-        if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0){
+        if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0 ||
+            contact.bodyB.categoryBitMask == 0x1 << 2 && contact.bodyA.categoryBitMask == 0x1 << 0 ) {
             score += 1
-            contact.bodyA.node?.physicsBody?.categoryBitMask = 0x1 << 3
-        } else if (contact.bodyB.categoryBitMask == 0x1 << 2 && contact.bodyA.categoryBitMask == 0x1 << 0){
-            score += 1
-            contact.bodyB.node?.physicsBody?.categoryBitMask = 0x1 << 3
+            run(soundOfPoint)
+            if (contact.bodyA.categoryBitMask == 0x1 << 2){
+                contact.bodyA.node?.physicsBody?.categoryBitMask = 0x1 << 3
+            } else {
+                contact.bodyB.node?.physicsBody?.categoryBitMask = 0x1 << 3
+            }
+            
         }
     }
     
@@ -148,6 +158,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func applyImpulseToPlayer() {
         let impulse = CGVector(dx: 0, dy: 1200)
         player.physicsBody?.velocity = impulse
+        player.run(soundOfWing)
     }
     
     private func rotatePlayer(){
@@ -195,11 +206,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background2.run(moveForever)
         base.run(moveForeverForBase)
         base2.run(moveForeverForBase)
-    }
-    
-    func performOtherAction() {
-        print("Collision detected between spriteA and spriteC")
-        // Ваш код для выполнения другого действия
     }
 }
 
