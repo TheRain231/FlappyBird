@@ -109,4 +109,10 @@ class Pipe: Equatable, Identifiable{
         lowerSprite.run(sequence)
         holeSprite.run(sequence2)
     }
+    
+    func stop(){
+        upperSprite.removeAllActions()
+        lowerSprite.removeAllActions()
+        holeSprite.removeAllActions()
+    }
 }

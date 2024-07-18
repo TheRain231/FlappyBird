@@ -8,8 +8,9 @@
 import Foundation
 import SwiftUI
 import GameKit
+import AVFoundation
 
-class GameScene: SKScene, SKPhysicsContactDelegate {
+class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     private let lightTexture = SKTexture(imageNamed: "background-day")
     private let darkTexture = SKTexture(imageNamed: "background-night")
     private let background = SKSpriteNode(imageNamed: "background-day")
@@ -30,6 +31,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             NotificationCenter.default.post(name: .scoreChanged, object: nil)
         }
     }
+    private var isDead = false
     
     private var playerIdleTextures: [SKTexture] {
         return [
@@ -40,11 +42,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ]
     }
     
+    private var audioPlayer: AVAudioPlayer?
+    private var nextAudioFileName: String?
+
     private let soundOfPoint = SKAction.playSoundFileNamed("sfx_point", waitForCompletion: false)
-    private let soundOfDeath = SKAction.sequence([
-        SKAction.playSoundFileNamed("sfx_hit", waitForCompletion: false),
-        SKAction.playSoundFileNamed("sfx_die", waitForCompletion: false)
-    ])
     private let soundOfSwoosh = SKAction.playSoundFileNamed("sfx_swooshing", waitForCompletion: false)
     private let soundOfWing = SKAction.playSoundFileNamed("sfx_wing", waitForCompletion: false)
     
@@ -61,9 +62,35 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
-        if (contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0 || contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0 ){
-            run(soundOfDeath)
-            restartGame()
+        if ((contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0 || contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0 ) && !isDead){
+            let stop = SKAction.run { [weak self] in
+                guard let pipes = self?.pipes else {
+                    return
+                }
+                for pipe in pipes {
+                    pipe.stop()
+                }
+                self?.background.removeAllActions()
+                self?.background2.removeAllActions()
+                self?.base.removeAllActions()
+                self?.base2.removeAllActions()
+                
+                guard let physicsBody = self?.player.physicsBody else { return }
+                    
+                // Устанавливаем маски коллизий и контактов в 0
+                physicsBody.categoryBitMask = 0
+                physicsBody.collisionBitMask = 0
+                physicsBody.contactTestBitMask = 0
+                self?.applyImpulseToPlayer(withSound: false)
+                self?.playSound(fileName: "sfx_hit.wav", nextFileName: "sfx_die.wav", volume: 1)
+            }
+            let wait = SKAction.wait(forDuration: 3)
+            let restart = SKAction.run { [weak self] in
+                self?.restartGame()
+            }
+            let soundOfHit = SKAction.playSoundFileNamed("sfx_hit", waitForCompletion: true)
+            let soundOfDeath = SKAction.playSoundFileNamed("sfx_die", waitForCompletion: false)
+            run(SKAction.sequence([stop, wait, restart]))
         }
         if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0 ||
             contact.bodyB.categoryBitMask == 0x1 << 2 && contact.bodyA.categoryBitMask == 0x1 << 0 ) {
@@ -74,7 +101,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             } else {
                 contact.bodyB.node?.physicsBody?.categoryBitMask = 0x1 << 3
             }
-            
         }
     }
     
@@ -122,7 +148,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private func setPlayer(){
         player.position = CGPoint(x: size.width / 5, y: size.height / 2)
         player.setScale(size.width / 350)
-        player.zPosition = 3
+        player.zPosition = 5
         
         player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
         player.physicsBody?.isDynamic = true
@@ -155,10 +181,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func applyImpulseToPlayer() {
+    func applyImpulseToPlayer(withSound: Bool = true) {
         let impulse = CGVector(dx: 0, dy: 1200)
         player.physicsBody?.velocity = impulse
-        player.run(soundOfWing)
+        if (withSound){
+            player.run(soundOfWing)
+        }
     }
     
     private func rotatePlayer(){
@@ -206,6 +234,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         background2.run(moveForever)
         base.run(moveForeverForBase)
         base2.run(moveForeverForBase)
+    }
+    
+    private func playSound(fileName: String, nextFileName: String?, volume: Float) {
+        guard let url = Bundle.main.url(forResource: fileName, withExtension: nil) else {
+            print("Could not find file: \(fileName)")
+            return
+        }
+        
+        do {
+            audioPlayer = try AVAudioPlayer(contentsOf: url)
+            audioPlayer?.volume = volume
+            audioPlayer?.delegate = self
+            nextAudioFileName = nextFileName
+            audioPlayer?.play()
+        } catch {
+            print("Could not create audio player: \(error)")
+        }
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if let nextFileName = nextAudioFileName {
+            playSound(fileName: nextFileName, nextFileName: nil, volume: player.volume)
+        }
     }
 }
 
