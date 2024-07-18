@@ -64,6 +64,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         if ((contact.bodyA.categoryBitMask == 0x1 << 1 && contact.bodyB.categoryBitMask == 0x1 << 0 || contact.bodyB.categoryBitMask == 0x1 << 1 && contact.bodyA.categoryBitMask == 0x1 << 0 ) && !isDead){
             let stop = SKAction.run { [weak self] in
+                self?.playSound(fileName: "sfx_hit.wav", nextFileName: "sfx_die.wav", volume: 1)
                 guard let pipes = self?.pipes else {
                     return
                 }
@@ -82,7 +83,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
                 physicsBody.collisionBitMask = 0
                 physicsBody.contactTestBitMask = 0
                 self?.applyImpulseToPlayer(withSound: false)
-                self?.playSound(fileName: "sfx_hit.wav", nextFileName: "sfx_die.wav", volume: 1)
             }
             let wait = SKAction.wait(forDuration: 3)
             let restart = SKAction.run { [weak self] in
