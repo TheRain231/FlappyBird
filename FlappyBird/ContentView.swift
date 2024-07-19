@@ -10,6 +10,7 @@ import SpriteKit
 import GameKit
 
 struct ContentView: View {
+    @EnvironmentObject private var launchScreenState: LaunchScreenStateManager
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var score = 0
     static var scene = GameScene()
@@ -33,7 +34,10 @@ struct ContentView: View {
             }
             
             
-        }.onChange(of: colorScheme) {
+        }.task {
+            self.launchScreenState.dismiss()
+        }
+        .onChange(of: colorScheme) {
             ContentView.scene.setTheme(colorScheme: colorScheme)
         }
         .onReceive(NotificationCenter.default.publisher(for: .scoreChanged)) { _ in
@@ -44,4 +48,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(LaunchScreenStateManager())
 }

@@ -9,10 +9,17 @@ import SwiftUI
 
 @main
 struct FlappyBirdApp: App {
+    @StateObject var launchScreenState = LaunchScreenStateManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .statusBar(hidden: true)
+            ZStack {
+                ContentView()
+                    .statusBar(hidden: true)
+                if launchScreenState.state != .finished {
+                    LaunchScreenView()
+                }
+            }.environmentObject(launchScreenState)
         }
     }
 }

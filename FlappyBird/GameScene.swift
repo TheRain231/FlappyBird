@@ -83,6 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
                 physicsBody.collisionBitMask = 0
                 physicsBody.contactTestBitMask = 0
                 self?.applyImpulseToPlayer(withSound: false)
+                self?.isDead = true
             }
             let wait = SKAction.wait(forDuration: 3)
             let restart = SKAction.run { [weak self] in
@@ -104,6 +105,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     
     // Функция для перезапуска игры
     func restartGame() {
+        isDead = false
         if let view = self.view {
             let newScene = GameScene(size: self.size)
             newScene.scaleMode = self.scaleMode
@@ -180,6 +182,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     }
     
     func applyImpulseToPlayer(withSound: Bool = true) {
+        if (isDead) { return }
+        
         let impulse = CGVector(dx: 0, dy: 1200)
         player.physicsBody?.velocity = impulse
         if (withSound){
