@@ -50,7 +50,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     private let soundOfWing = SKAction.playSoundFileNamed("sfx_wing", waitForCompletion: false)
     
     override func didMove(to view: SKView) {
-        scene?.size = CGSize(width: 1179, height: 2556)
+        var bounds = view.window?.windowScene?.screen.bounds.size
+        bounds?.width *= 3
+        bounds?.height *= 3
+        scene?.size = bounds ?? CGSize(width: 1179, height: 2556)
         self.setBackground()
         self.setPlayer()
         self.setPhysics()
@@ -86,8 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
                 self?.isDead = true
             }
             let wait = SKAction.wait(forDuration: 3)
-            let restart = SKAction.run { [weak self] in
-                self?.restartGame()
+            let restart = SKAction.run {
+                NotificationCenter.default.post(name: .gameOver, object: nil)
             }
             run(SKAction.sequence([stop, wait, restart]))
         }
@@ -265,4 +268,5 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
 
 extension Notification.Name {
     static let scoreChanged = Notification.Name("scoreChanged")
+    static let gameOver = Notification.Name("gameOver")
 }

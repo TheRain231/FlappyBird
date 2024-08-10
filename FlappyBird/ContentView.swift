@@ -13,6 +13,7 @@ struct ContentView: View {
     @EnvironmentObject private var launchScreenState: LaunchScreenStateManager
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var score = 0
+    @State private var isDead = false
     static var scene = GameScene()
     
     var body: some View {
@@ -26,13 +27,15 @@ struct ContentView: View {
                     ContentView.scene.applyImpulseToPlayer()
                 })
             VStack{
-                Text(String(score))
+                StrokeText(text: String(score), width: 2, color: .black)
                     .foregroundStyle(.white)
                     .font(.custom("04b19", size: 40))
                     .offset(y: 30)
                 Spacer()
             }
-            
+            if (isDead){
+                MenuView(score: self.score)
+            }
             
         }.task {
             self.launchScreenState.dismiss()
@@ -42,6 +45,38 @@ struct ContentView: View {
         }
         .onReceive(NotificationCenter.default.publisher(for: .scoreChanged)) { _ in
             self.score = ContentView.scene.score
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .gameOver), perform: { _ in
+            if (!isDead){
+                print("death")
+            }
+            withAnimation(.interactiveSpring) {
+                isDead = true
+            }
+        })
+        .onReceive(NotificationCenter.default.publisher(for: .restartButton), perform: { _ in
+            ContentView.scene.restartGame()
+            isDead = false
+        })
+    }
+}
+
+
+struct StrokeText: View {
+    let text: String
+    let width: CGFloat
+    let color: Color
+
+    var body: some View {
+        ZStack{
+            ZStack{
+                Text(text).offset(x:  width, y:  width)
+                Text(text).offset(x: -width, y: -width)
+                Text(text).offset(x: -width, y:  width)
+                Text(text).offset(x:  width, y: -width)
+            }
+            .foregroundColor(color)
+            Text(text)
         }
     }
 }
