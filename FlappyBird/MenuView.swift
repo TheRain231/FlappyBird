@@ -16,6 +16,8 @@ struct MenuView: View {
     let secondaryColor = Color.init(cgColor: CGColor(red: 0.6, green: 0.6, blue: 0.25, alpha: 1))
     let primaryColor = Color.init(cgColor: CGColor(red: 0.8, green: 0.8, blue: 0.45, alpha: 1))
     let cornerRadius = 10.0
+    @AppStorage("maxScore") var maxScore = 0
+
     
     var body: some View {
         ZStack{
@@ -45,7 +47,7 @@ struct MenuView: View {
                         .font(.custom("04b19", size: 20))
                         .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
                     
-                    Text("Best score: \(String(score))")
+                    Text("Best score: \(String(maxScore))")
                         .foregroundStyle(secondaryColor)
                         .font(.custom("04b19", size: 20))
                         .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
@@ -75,6 +77,11 @@ struct MenuView: View {
                 Spacer()
             }
             .padding(EdgeInsets(top: screenHeight, leading: 50, bottom: screenHeight, trailing: 50))
+            .onAppear{
+                if (score > maxScore){
+                    maxScore = score
+                }
+            }
         }
     }
 }
