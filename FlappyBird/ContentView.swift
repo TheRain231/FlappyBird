@@ -37,7 +37,18 @@ struct ContentView: View {
                 MenuView(score: self.score)
             }
             
-        }.task {
+        }.onAppear{
+            do {
+                let audioSession = AVAudioSession.sharedInstance()
+                
+                try audioSession.setCategory(.ambient, options: [.mixWithOthers])
+                
+                try audioSession.setActive(true)
+            } catch {
+                print("Ошибка настройки аудиосессии: \(error)")
+            }
+        }
+        .task {
             self.launchScreenState.dismiss()
         }
         .onChange(of: colorScheme) {
