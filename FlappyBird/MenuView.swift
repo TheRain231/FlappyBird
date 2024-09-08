@@ -63,7 +63,7 @@ struct MenuView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        NotificationCenter.default.post(name: .restartButton, object: nil)
+                        NotificationCenter.default.post(name: isStart ? .startButton : .restartButton, object: nil)
                     }, label: {
                         StrokeText(text: isStart ? "Start" : "Restart", width: 2, color: .black)
                             .foregroundStyle(.white)
@@ -108,6 +108,7 @@ struct MenuView: View {
 
 extension Notification.Name {
     static let restartButton = Notification.Name("restartButton")
+    static let startButton = Notification.Name("startButton")
     static let muteButton = Notification.Name("muteButton")
     static let unmuteButton = Notification.Name("unmuteButton")
 }

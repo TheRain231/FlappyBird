@@ -14,7 +14,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var score = 0
     @State private var isDead = false
-    static var scene = GameScene()
+    static var scene = GameScene(hasBegan: false)
     
     var body: some View {
         ZStack{
@@ -68,6 +68,9 @@ struct ContentView: View {
         .onReceive(NotificationCenter.default.publisher(for: .restartButton), perform: { _ in
             ContentView.scene.restartGame()
             isDead = false
+        })
+        .onReceive(NotificationCenter.default.publisher(for: .startButton), perform: { _ in
+            ContentView.scene.begin()
         })
     }
 }

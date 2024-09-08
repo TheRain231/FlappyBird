@@ -12,6 +12,8 @@ import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     @AppStorage("isMuted") var isMuted = false
+    @AppStorage("attempts") var attempts = 0
+    var hasBegan: Bool = true
     private let lightTexture = SKTexture(imageNamed: "background-day")
     private let darkTexture = SKTexture(imageNamed: "background-night")
     private let background = SKSpriteNode(imageNamed: "background-day")
@@ -50,19 +52,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     private let soundOfSwoosh = SKAction.playSoundFileNamed("sfx_swooshing", waitForCompletion: false)
     private let soundOfWing = SKAction.playSoundFileNamed("sfx_wing", waitForCompletion: false)
     
+    init(hasBegan: Bool = false) {
+        super.init(size: CGSizeZero)
+        self.hasBegan = hasBegan
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func didMove(to view: SKView) {
         var bounds = view.window?.windowScene?.screen.bounds.size
         bounds?.width *= 3
         bounds?.height *= 3
         scene?.size = bounds ?? CGSize(width: 1179, height: 2556)
+        
         self.setBackground()
         self.setPlayer()
-        self.setPhysics()
-        self.setPipe()
         
         self.startIdleAnimation()
         self.startBackgroundAnimation()
+
+        if(hasBegan){
+            begin()
+        }
         physicsWorld.contactDelegate = self
+    }
+    
+    func begin(){
+        self.setPhysics()
+        self.setPipe()
+        
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -91,6 +111,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
             }
             let wait = SKAction.wait(forDuration: 3)
             let restart = SKAction.run {
+                self.attempts += 1
                 NotificationCenter.default.post(name: .gameOver, object: nil)
             }
             run(SKAction.sequence([stop, wait, restart]))
@@ -113,7 +134,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     func restartGame() {
         isDead = false
         if let view = self.view {
-            let newScene = GameScene(size: self.size)
+            let newScene = GameScene()//size: self.size)
             newScene.scaleMode = self.scaleMode
             let transition = SKTransition.crossFade(withDuration: 1.0)
             view.presentScene(newScene, transition: transition)
@@ -156,12 +177,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         player.setScale(size.width / 350)
         player.zPosition = 5
         
-        player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
-        player.physicsBody?.isDynamic = true
-        player.physicsBody?.allowsRotation = false
-        player.physicsBody?.categoryBitMask = 0x1 << 0
-        player.physicsBody?.contactTestBitMask = 0x1 << 1 | 0x1 << 2
-        player.physicsBody?.collisionBitMask = 0x1 << 1
+        
         
         addChild(player)
     }
@@ -212,6 +228,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     private func setPhysics() {
         physicsWorld.gravity = CGVector(dx: 0, dy: -18)
         self.setPhysicsBoundaries()
+        
+        player.physicsBody = SKPhysicsBody(texture: player.texture!, size: player.size)
+        player.physicsBody?.isDynamic = true
+        player.physicsBody?.allowsRotation = false
+        player.physicsBody?.categoryBitMask = 0x1 << 0
+        player.physicsBody?.contactTestBitMask = 0x1 << 1 | 0x1 << 2
+        player.physicsBody?.collisionBitMask = 0x1 << 1
     }
     
     private func setPhysicsBoundaries() {
