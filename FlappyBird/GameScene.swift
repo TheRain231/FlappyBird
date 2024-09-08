@@ -83,6 +83,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         self.setPhysics()
         self.setPipe()
         
+        self.applyImpulseToPlayer(withSound: false, impulse: 200)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -134,7 +135,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     func restartGame() {
         isDead = false
         if let view = self.view {
-            let newScene = GameScene()//size: self.size)
+            let newScene = GameScene(hasBegan: true)
             newScene.scaleMode = self.scaleMode
             let transition = SKTransition.crossFade(withDuration: 1.0)
             view.presentScene(newScene, transition: transition)
@@ -203,10 +204,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         }
     }
     
-    func applyImpulseToPlayer(withSound: Bool = true) {
+    func applyImpulseToPlayer(withSound: Bool = true, impulse: Int = 1200) {
         if (isDead) { return }
         
-        let impulse = CGVector(dx: 0, dy: 1200)
+        let impulse = CGVector(dx: 0, dy: impulse)
         player.physicsBody?.velocity = impulse
         if (isMuted && withSound){
             player.run(soundOfWing)

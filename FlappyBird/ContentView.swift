@@ -14,6 +14,7 @@ struct ContentView: View {
     @Environment(\.colorScheme) var colorScheme: ColorScheme
     @State private var score = 0
     @State private var isDead = false
+    @State private var isStart = true
     static var scene = GameScene(hasBegan: false)
     
     var body: some View {
@@ -36,7 +37,9 @@ struct ContentView: View {
             if (isDead){
                 MenuView(isStart: false, score: self.score)
             }
-            
+            if (isStart){
+                MenuView(isStart: true, score: self.score)
+            }
         }.onAppear{
             do {
                 let audioSession = AVAudioSession.sharedInstance()
@@ -71,6 +74,7 @@ struct ContentView: View {
         })
         .onReceive(NotificationCenter.default.publisher(for: .startButton), perform: { _ in
             ContentView.scene.begin()
+            isStart = false
         })
     }
 }
