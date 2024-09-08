@@ -10,14 +10,16 @@ import SwiftUI
 
 
 struct MenuView: View {
+    let isStart: Bool
     let score: Int
     let menuBorder: CGFloat = 10
-    let screenHeight = UIScreen.main.bounds.height / 4
+    let screenHeight = UIScreen.main.bounds.height / 3.5
     let secondaryColor = Color.init(cgColor: CGColor(red: 0.6, green: 0.6, blue: 0.25, alpha: 1))
     let primaryColor = Color.init(cgColor: CGColor(red: 0.8, green: 0.8, blue: 0.45, alpha: 1))
     let cornerRadius = 10.0
     @AppStorage("maxScore") var maxScore = 0
     @AppStorage("isMuted") var isMuted = true
+    @AppStorage("attempts") var attempts = 0
     
     
     var body: some View {
@@ -33,7 +35,7 @@ struct MenuView: View {
             VStack(alignment: .leading){
                 HStack {
                     Spacer()
-                    StrokeText(text: "Game over", width: 2, color: .black)
+                    StrokeText(text: isStart ? "Flappy Bird" : "Game over", width: 2, color: .black)
                         .foregroundStyle(.white)
                         .font(.custom("04b19", size: 40))
                         .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
@@ -43,7 +45,7 @@ struct MenuView: View {
                 Spacer()
                 
                 VStack(alignment: .leading){
-                    Text("Score: \(String(score))")
+                    Text(isStart ? "Attempts: \(String(attempts))" : "Score: \(String(score))")
                         .foregroundStyle(secondaryColor)
                         .font(.custom("04b19", size: 20))
                         .padding(EdgeInsets(top: 20, leading: 0, bottom: 0, trailing: 0))
@@ -63,7 +65,7 @@ struct MenuView: View {
                     Button(action: {
                         NotificationCenter.default.post(name: .restartButton, object: nil)
                     }, label: {
-                        StrokeText(text: "Restart", width: 2, color: .black)
+                        StrokeText(text: isStart ? "Start" : "Restart", width: 2, color: .black)
                             .foregroundStyle(.white)
                             .font(.custom("04b19", size: 20))
                     })
@@ -112,5 +114,5 @@ extension Notification.Name {
 
 
 #Preview {
-    MenuView(score: 10)
+    MenuView(isStart: true, score: 10)
 }

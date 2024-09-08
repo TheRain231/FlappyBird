@@ -34,7 +34,7 @@ struct ContentView: View {
                 Spacer()
             }
             if (isDead){
-                MenuView(score: self.score)
+                MenuView(isStart: false, score: self.score)
             }
             
         }.onAppear{
