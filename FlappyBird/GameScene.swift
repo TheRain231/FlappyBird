@@ -11,6 +11,7 @@ import GameKit
 import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
+    @AppStorage("isMuted") var isMuted = false
     private let lightTexture = SKTexture(imageNamed: "background-day")
     private let darkTexture = SKTexture(imageNamed: "background-night")
     private let background = SKSpriteNode(imageNamed: "background-day")
@@ -97,7 +98,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         if (contact.bodyA.categoryBitMask == 0x1 << 2 && contact.bodyB.categoryBitMask == 0x1 << 0 ||
             contact.bodyB.categoryBitMask == 0x1 << 2 && contact.bodyA.categoryBitMask == 0x1 << 0 ) {
             score += 1
-            run(soundOfPoint)
+            if (isMuted){
+                run(soundOfPoint)
+            }
             if (contact.bodyA.categoryBitMask == 0x1 << 2){
                 contact.bodyA.node?.physicsBody?.categoryBitMask = 0x1 << 3
             } else {
@@ -189,7 +192,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         
         let impulse = CGVector(dx: 0, dy: 1200)
         player.physicsBody?.velocity = impulse
-        if (withSound){
+        if (isMuted && withSound){
             player.run(soundOfWing)
         }
     }
@@ -253,7 +256,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
             audioPlayer?.volume = volume
             audioPlayer?.delegate = self
             nextAudioFileName = nextFileName
-            audioPlayer?.play()
+            if (isMuted){
+                audioPlayer?.play()
+            }
         } catch {
             print("Could not create audio player: \(error)")
         }

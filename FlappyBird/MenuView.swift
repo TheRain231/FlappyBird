@@ -17,7 +17,8 @@ struct MenuView: View {
     let primaryColor = Color.init(cgColor: CGColor(red: 0.8, green: 0.8, blue: 0.45, alpha: 1))
     let cornerRadius = 10.0
     @AppStorage("maxScore") var maxScore = 0
-
+    @AppStorage("isMuted") var isMuted = true
+    
     
     var body: some View {
         ZStack{
@@ -55,7 +56,7 @@ struct MenuView: View {
                 
                 
                 Spacer()
-
+                
                 
                 HStack {
                     Spacer()
@@ -71,6 +72,23 @@ struct MenuView: View {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .foregroundStyle(secondaryColor)
                     }
+                    Button  {
+                        withAnimation {
+                            isMuted.toggle()
+                        }
+                    } label: {
+                        ZStack{
+                            Image(systemName: "speaker.slash.fill")
+                                .foregroundStyle(.clear)
+                            Image(systemName: isMuted ? "speaker.fill" : "speaker.slash.fill")
+                                .contentTransition(.symbolEffect(.replace.wholeSymbol))
+                                .foregroundStyle(.white)
+                        }
+                    }.padding(10)
+                        .background {
+                            RoundedRectangle(cornerRadius: cornerRadius)
+                                .foregroundStyle(secondaryColor)
+                        }
                     Spacer()
                 }
                 
@@ -88,6 +106,8 @@ struct MenuView: View {
 
 extension Notification.Name {
     static let restartButton = Notification.Name("restartButton")
+    static let muteButton = Notification.Name("muteButton")
+    static let unmuteButton = Notification.Name("unmuteButton")
 }
 
 
