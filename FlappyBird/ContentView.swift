@@ -24,9 +24,6 @@ struct ContentView: View {
                 .onAppear(perform: {
                     ContentView.scene.setTheme(colorScheme: colorScheme)
                 })
-                .onTapGesture(perform: {
-                    ContentView.scene.applyImpulseToPlayer()
-                })
             VStack{
                 StrokeText(text: String(score), width: 2, color: .black)
                     .foregroundStyle(.white)

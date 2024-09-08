@@ -61,7 +61,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        if (hasBegan){
+            self.applyImpulseToPlayer()
+        }
+    }
+    
     override func didMove(to view: SKView) {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        view.addGestureRecognizer(tapGestureRecognizer)
+
         var bounds = view.window?.windowScene?.screen.bounds.size
         bounds?.width *= 3
         bounds?.height *= 3
@@ -80,6 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     }
     
     func begin(){
+        hasBegan = true
+        
         self.setPhysics()
         self.setPipe()
         
