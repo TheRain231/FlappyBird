@@ -17,9 +17,9 @@ struct MenuView: View {
     let secondaryColor = Color.init(cgColor: CGColor(red: 0.6, green: 0.6, blue: 0.25, alpha: 1))
     let primaryColor = Color.init(cgColor: CGColor(red: 0.8, green: 0.8, blue: 0.45, alpha: 1))
     let cornerRadius = 10.0
-    @AppStorage("maxScore") var maxScore = 0
+    @AppStorage("maxScore", store: .init(suiteName: "group.TheRain.FlappyBird")) var maxScore = 0
     @AppStorage("isMuted") var isMuted = true
-    @AppStorage("attempts") var attempts = 0
+    @AppStorage("attempts", store: .init(suiteName: "group.TheRain.FlappyBird")) var attempts = 0
     
     
     var body: some View {

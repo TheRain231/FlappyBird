@@ -12,7 +12,7 @@ import AVFoundation
 
 class GameScene: SKScene, SKPhysicsContactDelegate, AVAudioPlayerDelegate {
     @AppStorage("isMuted") var isMuted = false
-    @AppStorage("attempts") var attempts = 0
+    @AppStorage("attempts", store: .init(suiteName: "group.TheRain.FlappyBird")) var attempts = 0
     var hasBegan: Bool = true
     private let lightTexture = SKTexture(imageNamed: "background-day")
     private let darkTexture = SKTexture(imageNamed: "background-night")

@@ -15,6 +15,11 @@
 		384943402C49AD8E008EF827 /* sfx_point.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3849433B2C49AD8E008EF827 /* sfx_point.wav */; };
 		384943412C49AD8E008EF827 /* sfx_die.wav in Resources */ = {isa = PBXBuildFile; fileRef = 3849433C2C49AD8E008EF827 /* sfx_die.wav */; };
 		3874A5042C675DCB00C1B2C6 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874A5032C675DCB00C1B2C6 /* MenuView.swift */; };
+		3897CBC52C91F8EE008039A0 /* flappy-font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 384943352C49A724008EF827 /* flappy-font.ttf */; };
+		3897CBC62C91F94B008039A0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899F37A2C146377000E6696 /* ContentView.swift */; };
+		3897CBC72C91FA94008039A0 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3874A5032C675DCB00C1B2C6 /* MenuView.swift */; };
+		3897CBC82C91FA94008039A0 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899F3862C1463AC000E6696 /* GameScene.swift */; };
+		3897CBC92C91FA94008039A0 /* Pipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3806887D2C20D5F500576E0E /* Pipe.swift */; };
 		3899F3792C146377000E6696 /* FlappyBirdApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899F3782C146377000E6696 /* FlappyBirdApp.swift */; };
 		3899F37B2C146377000E6696 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3899F37A2C146377000E6696 /* ContentView.swift */; };
 		3899F37D2C146379000E6696 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3899F37C2C146379000E6696 /* Assets.xcassets */; };
@@ -23,7 +28,43 @@
 		38A74C8D2C4A6B3200CFD175 /* LaunchScreenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A74C8B2C4A6B3200CFD175 /* LaunchScreenStateManager.swift */; };
 		38A74C8E2C4A6B3200CFD175 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A74C8C2C4A6B3200CFD175 /* LaunchScreenView.swift */; };
 		38A74C902C4A6B4000CFD175 /* LaunchScreenStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A74C8F2C4A6B4000CFD175 /* LaunchScreenStep.swift */; };
+		38B0FA0A2C91F16B00866709 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B0FA092C91F16B00866709 /* WidgetKit.framework */; };
+		38B0FA0C2C91F16B00866709 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38B0FA0B2C91F16B00866709 /* SwiftUI.framework */; };
+		38B0FA0F2C91F16B00866709 /* FlappyWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FA0E2C91F16B00866709 /* FlappyWidgetBundle.swift */; };
+		38B0FA112C91F16B00866709 /* FlappyWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FA102C91F16B00866709 /* FlappyWidgetLiveActivity.swift */; };
+		38B0FA132C91F16B00866709 /* FlappyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FA122C91F16B00866709 /* FlappyWidget.swift */; };
+		38B0FA152C91F16B00866709 /* AppIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38B0FA142C91F16B00866709 /* AppIntent.swift */; };
+		38B0FA172C91F16E00866709 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 38B0FA162C91F16E00866709 /* Assets.xcassets */; };
+		38B0FA1B2C91F16E00866709 /* FlappyWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 38B0FA072C91F16B00866709 /* FlappyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		38B0FA202C91F2B000866709 /* LaunchScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A74C8C2C4A6B3200CFD175 /* LaunchScreenView.swift */; };
+		38B0FA212C91F2B000866709 /* LaunchScreenStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A74C8F2C4A6B4000CFD175 /* LaunchScreenStep.swift */; };
+		38B0FA222C91F2B000866709 /* LaunchScreenStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38A74C8B2C4A6B3200CFD175 /* LaunchScreenStateManager.swift */; };
+		38B0FA232C91F41600866709 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3899F37C2C146379000E6696 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		38B0FA192C91F16E00866709 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3899F36D2C146376000E6696 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 38B0FA062C91F16B00866709;
+			remoteInfo = FlappyWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		38B0FA1C2C91F16E00866709 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				38B0FA1B2C91F16E00866709 /* FlappyWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3806887D2C20D5F500576E0E /* Pipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pipe.swift; sourceTree = "<group>"; };
@@ -35,6 +76,7 @@
 		3849433B2C49AD8E008EF827 /* sfx_point.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_point.wav; sourceTree = "<group>"; };
 		3849433C2C49AD8E008EF827 /* sfx_die.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx_die.wav; sourceTree = "<group>"; };
 		3874A5032C675DCB00C1B2C6 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		3897CBCA2C91FCEE008039A0 /* FlappyBird.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = FlappyBird.entitlements; sourceTree = "<group>"; };
 		3899F3752C146377000E6696 /* FlappyBird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBird.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3899F3782C146377000E6696 /* FlappyBirdApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyBirdApp.swift; sourceTree = "<group>"; };
 		3899F37A2C146377000E6696 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -44,6 +86,15 @@
 		38A74C8B2C4A6B3200CFD175 /* LaunchScreenStateManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenStateManager.swift; sourceTree = "<group>"; };
 		38A74C8C2C4A6B3200CFD175 /* LaunchScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenView.swift; sourceTree = "<group>"; };
 		38A74C8F2C4A6B4000CFD175 /* LaunchScreenStep.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchScreenStep.swift; sourceTree = "<group>"; };
+		38B0FA072C91F16B00866709 /* FlappyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = FlappyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		38B0FA092C91F16B00866709 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		38B0FA0B2C91F16B00866709 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		38B0FA0E2C91F16B00866709 /* FlappyWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyWidgetBundle.swift; sourceTree = "<group>"; };
+		38B0FA102C91F16B00866709 /* FlappyWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		38B0FA122C91F16B00866709 /* FlappyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlappyWidget.swift; sourceTree = "<group>"; };
+		38B0FA142C91F16B00866709 /* AppIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIntent.swift; sourceTree = "<group>"; };
+		38B0FA162C91F16E00866709 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		38B0FA182C91F16E00866709 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +102,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38B0FA042C91F16B00866709 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38B0FA0C2C91F16B00866709 /* SwiftUI.framework in Frameworks */,
+				38B0FA0A2C91F16B00866709 /* WidgetKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +133,8 @@
 			isa = PBXGroup;
 			children = (
 				3899F3772C146377000E6696 /* FlappyBird */,
+				38B0FA0D2C91F16B00866709 /* FlappyWidget */,
+				38B0FA082C91F16B00866709 /* Frameworks */,
 				3899F3762C146377000E6696 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -81,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				3899F3752C146377000E6696 /* FlappyBird.app */,
+				38B0FA072C91F16B00866709 /* FlappyWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -88,6 +151,7 @@
 		3899F3772C146377000E6696 /* FlappyBird */ = {
 			isa = PBXGroup;
 			children = (
+				3897CBCA2C91FCEE008039A0 /* FlappyBird.entitlements */,
 				384943372C49A72F008EF827 /* Info.plist */,
 				3899F3782C146377000E6696 /* FlappyBirdApp.swift */,
 				384943352C49A724008EF827 /* flappy-font.ttf */,
@@ -121,6 +185,28 @@
 			path = LaunchScreen;
 			sourceTree = "<group>";
 		};
+		38B0FA082C91F16B00866709 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				38B0FA092C91F16B00866709 /* WidgetKit.framework */,
+				38B0FA0B2C91F16B00866709 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		38B0FA0D2C91F16B00866709 /* FlappyWidget */ = {
+			isa = PBXGroup;
+			children = (
+				38B0FA0E2C91F16B00866709 /* FlappyWidgetBundle.swift */,
+				38B0FA102C91F16B00866709 /* FlappyWidgetLiveActivity.swift */,
+				38B0FA122C91F16B00866709 /* FlappyWidget.swift */,
+				38B0FA142C91F16B00866709 /* AppIntent.swift */,
+				38B0FA162C91F16E00866709 /* Assets.xcassets */,
+				38B0FA182C91F16E00866709 /* Info.plist */,
+			);
+			path = FlappyWidget;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -131,15 +217,34 @@
 				3899F3712C146377000E6696 /* Sources */,
 				3899F3722C146377000E6696 /* Frameworks */,
 				3899F3732C146377000E6696 /* Resources */,
+				38B0FA1C2C91F16E00866709 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				38B0FA1A2C91F16E00866709 /* PBXTargetDependency */,
 			);
 			name = FlappyBird;
 			productName = FlappyBird;
 			productReference = 3899F3752C146377000E6696 /* FlappyBird.app */;
 			productType = "com.apple.product-type.application";
+		};
+		38B0FA062C91F16B00866709 /* FlappyWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 38B0FA1F2C91F16E00866709 /* Build configuration list for PBXNativeTarget "FlappyWidgetExtension" */;
+			buildPhases = (
+				38B0FA032C91F16B00866709 /* Sources */,
+				38B0FA042C91F16B00866709 /* Frameworks */,
+				38B0FA052C91F16B00866709 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = FlappyWidgetExtension;
+			productName = FlappyWidgetExtension;
+			productReference = 38B0FA072C91F16B00866709 /* FlappyWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -152,6 +257,9 @@
 				LastUpgradeCheck = 1540;
 				TargetAttributes = {
 					3899F3742C146377000E6696 = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					38B0FA062C91F16B00866709 = {
 						CreatedOnToolsVersion = 15.4;
 					};
 				};
@@ -170,6 +278,7 @@
 			projectRoot = "";
 			targets = (
 				3899F3742C146377000E6696 /* FlappyBird */,
+				38B0FA062C91F16B00866709 /* FlappyWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -187,6 +296,16 @@
 				3899F37D2C146379000E6696 /* Assets.xcassets in Resources */,
 				384943402C49AD8E008EF827 /* sfx_point.wav in Resources */,
 				3849433E2C49AD8E008EF827 /* sfx_wing.wav in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38B0FA052C91F16B00866709 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3897CBC52C91F8EE008039A0 /* flappy-font.ttf in Resources */,
+				38B0FA232C91F41600866709 /* Assets.xcassets in Resources */,
+				38B0FA172C91F16E00866709 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +327,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		38B0FA032C91F16B00866709 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				38B0FA112C91F16B00866709 /* FlappyWidgetLiveActivity.swift in Sources */,
+				3897CBC72C91FA94008039A0 /* MenuView.swift in Sources */,
+				3897CBC82C91FA94008039A0 /* GameScene.swift in Sources */,
+				3897CBC92C91FA94008039A0 /* Pipe.swift in Sources */,
+				38B0FA202C91F2B000866709 /* LaunchScreenView.swift in Sources */,
+				3897CBC62C91F94B008039A0 /* ContentView.swift in Sources */,
+				38B0FA212C91F2B000866709 /* LaunchScreenStep.swift in Sources */,
+				38B0FA222C91F2B000866709 /* LaunchScreenStateManager.swift in Sources */,
+				38B0FA152C91F16B00866709 /* AppIntent.swift in Sources */,
+				38B0FA0F2C91F16B00866709 /* FlappyWidgetBundle.swift in Sources */,
+				38B0FA132C91F16B00866709 /* FlappyWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		38B0FA1A2C91F16E00866709 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 38B0FA062C91F16B00866709 /* FlappyWidgetExtension */;
+			targetProxy = 38B0FA192C91F16E00866709 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3899F3812C146379000E6696 /* Debug */ = {
@@ -333,8 +478,10 @@
 		3899F3842C146379000E6696 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FlappyBird/FlappyBird.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FlappyBird/Preview Content\"";
@@ -347,6 +494,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -363,8 +511,10 @@
 		3899F3852C146379000E6696 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FlappyBird/FlappyBird.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"FlappyBird/Preview Content\"";
@@ -377,6 +527,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -384,6 +535,60 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = TheRain.FlappyBird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		38B0FA1D2C91F16E00866709 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VVZTWZLT4N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FlappyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FlappyWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TheRain.FlappyBird.FlappyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		38B0FA1E2C91F16E00866709 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = VVZTWZLT4N;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FlappyWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = FlappyWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = TheRain.FlappyBird.FlappyWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -407,6 +612,15 @@
 			buildConfigurations = (
 				3899F3842C146379000E6696 /* Debug */,
 				3899F3852C146379000E6696 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		38B0FA1F2C91F16E00866709 /* Build configuration list for PBXNativeTarget "FlappyWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				38B0FA1D2C91F16E00866709 /* Debug */,
+				38B0FA1E2C91F16E00866709 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
