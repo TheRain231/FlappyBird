@@ -48,7 +48,12 @@ struct FlappyWidgetEntryView : View {
                 .onAppear{
                     print(maxScore)
                 }
-            StrokeText(text: String(maxScore), width: 2, color: .black)
+            let data = entry.configuration.scoreOption == "maxScore" ? maxScore : attempts
+            let str = entry.configuration.scoreOption == "maxScore" ? "Best:" : "Attempts:"
+            StrokeText(text: str, width: 2, color: .black)
+                .font(.custom("04b19", size: 20))
+                .foregroundStyle(.white)
+            StrokeText(text: String(data), width: 2, color: .black)
                 .font(.custom("04b19", size: 40))
                 .foregroundStyle(.white)
         }
@@ -67,13 +72,13 @@ struct FlappyWidget: Widget {
 }
 
 extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
+    fileprivate static var best: ConfigurationAppIntent {
         let intent = ConfigurationAppIntent()
         intent.scoreOption = "maxScore"
         return intent
     }
     
-    fileprivate static var starEyes: ConfigurationAppIntent {
+    fileprivate static var attempts: ConfigurationAppIntent {
         let intent = ConfigurationAppIntent()
         intent.scoreOption = "attempts"
         return intent
@@ -83,6 +88,5 @@ extension ConfigurationAppIntent {
 #Preview(as: .systemSmall) {
     FlappyWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley)
-    SimpleEntry(date: .now, configuration: .starEyes)
+    SimpleEntry(date: .now, configuration: .best)
 }

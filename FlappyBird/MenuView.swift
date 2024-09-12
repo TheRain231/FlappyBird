@@ -82,7 +82,9 @@ struct MenuView: View {
                         ZStack{
                             Image(systemName: "speaker.slash.fill")
                                 .foregroundStyle(.clear)
-                            Image(systemName: isMuted ? "speaker.fill" : "speaker.slash.fill")
+                            Image(systemName: "speaker.wave.1.fill")
+                                .foregroundStyle(.clear)
+                            Image(systemName: isMuted ? "speaker.wave.1.fill" : "speaker.slash.fill")
                                 .contentTransition(.symbolEffect(.replace.wholeSymbol))
                                 .foregroundStyle(.white)
                         }
