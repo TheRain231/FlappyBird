@@ -20,8 +20,8 @@ class Pipe: Equatable, Identifiable{
     let upperSprite = SKSpriteNode(imageNamed: "pipe")
     let lowerSprite = SKSpriteNode(imageNamed: "pipe")
     var offsite = CGFloat.random(in: -700...700)
-    let holeMin = -40.0
-    let holeMax = -20.0
+    let holeMin = -45.0
+    let holeMax = -25.0
     var hole: CGFloat
     var posX: CGFloat = 0
     let holeSprite: SKSpriteNode

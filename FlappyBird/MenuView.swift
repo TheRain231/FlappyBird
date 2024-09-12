@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import WidgetKit
 
 
 struct MenuView: View {
@@ -102,6 +103,7 @@ struct MenuView: View {
             .onAppear{
                 if (score > maxScore){
                     maxScore = score
+                    WidgetCenter.shared.reloadTimelines(ofKind: "FlappyWidget")
                 }
             }
         }
